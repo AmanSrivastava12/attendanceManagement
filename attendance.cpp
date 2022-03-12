@@ -7,6 +7,7 @@ using namespace std;
 
 int studentLogin();
 int adminLogin();
+int studentView();
 
 int studentLogin()
 {
@@ -40,11 +41,61 @@ if(username=="admin" && password=="admin@2")
 else
 {
 cout<<"\n Error! Invalid Credentials!";	
-cout<<"\n Press any key for main menu ";
+cout<<"\n Press any key for Main Menu";
 getchar();getchar();
 }
-
 return 0;
+}
+
+int studentView()
+{
+cout<<"\n STUDENT LOGIN --\n";		
+
+string username, password;
+
+cout<<"\n Enter username -";
+cin>>username;
+
+cout<<"\n Enter password -";
+cin>>password;
+
+int res = checkStudentCredentials(username, password);
+
+if(res  == 0)
+{
+   cout<<"\n Error! Invalid Credentials!";
+   cout<<"\n Press any key for Main Menu";
+   getchar(); getchar();	
+   return 0;
+} 
+
+int goBack = 0;
+while(1)
+{
+system("cls");
+
+cout<<"\n ENTER 1 - Mark Attendance for today \n 2 - Count my Attendance till date \n 3 - Return";
+cout<<"ENTER YOUR CHOICE";
+int choice;
+cin>>choice;
+
+switch(choice)
+{
+	case 1: markMyAttendance(username);
+	break;
+	case 2: countMyAttendance(username);
+	break;
+	case 0: goBack = 1;
+	break;
+    default: cout<<"\n Invalid choice entered. Try again.";
+    getchar();           	
+}   
+
+if(goBack == 1)
+{
+break;
+}     	
+} 
 }
 
 
