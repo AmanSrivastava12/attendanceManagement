@@ -8,6 +8,7 @@ using namespace std;
 int studentLogin();
 int adminLogin();
 int studentView();
+int adminView();
 
 int studentLogin()
 {
@@ -98,6 +99,44 @@ break;
 } 
 }
 
+int adminView()
+{	
+int goBack = 0;
+while(1)
+{
+system("cls");
+cout<<"\n ENTER 0 - Return back \n 1 - Register a Student \n 2 - Delete all students name that are registered \n 3 - Delete a student through rollno \n 4 - Check list of students registered by userame \n 5 - Check present attendance of any student through rollno \n 6 - Get complete list of students with their attendance";
+int choice;
+
+cout<<"ENTER YOUR CHOICE";
+cin>>choice;
+
+switch(choice)
+{
+	case 1: registerStudent();
+	break;  
+	case 2: deleteAllStudents();
+	break;
+	case 3: deleteStudentbyRollno();
+	break;
+	case 4: checkListOfStudentsRegistered();
+	break;
+	case 5: checkPresenseCountbyRollno();
+	break;
+	case 6: getListOfStudentsWithTheirPresenseCount();
+	break;
+	case 0: goBack = 1;
+	break;
+    default: cout<<"\n Invalid choice entered. Try again.";
+    getchar();           	
+}   
+if(goBack == 1)
+{
+break;
+}     
+}
+return 0;
+}
 
 int main() {
 	
