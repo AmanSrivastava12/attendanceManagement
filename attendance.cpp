@@ -9,6 +9,28 @@ int studentLogin();
 int adminLogin();
 int studentView();
 int adminView();
+int checkCredentials(string userName, string password);
+int delay();
+
+void delay()
+{
+for(int i = 0; i<3; i ++)
+{
+	cout<<"\n SAVING";
+    for(int ii = 0; ii<20000; ii ++)
+    {
+    	for(int iii = 0; iii<20000; iii ++)
+       	{ }
+    }
+}  
+cout<<"\n QUITTING";
+for(int i = 0; i<3; i ++){
+   for(int ii = 0; ii<20000; ii ++) { 
+     for(int iii = 0; iii<20000; iii ++){
+	 }
+    } 
+}
+}
 
 int studentLogin()
 {
@@ -60,7 +82,7 @@ cin>>username;
 cout<<"\n Enter password -";
 cin>>password;
 
-int res = checkStudentCredentials(username, password);
+int res = checkCredentials(username, password);
 
 if(res  == 0)
 {
@@ -136,6 +158,34 @@ break;
 }     
 }
 return 0;
+}
+
+int checkCredentials(string username, string password)
+{
+ifstream read;
+read.open("db.dat");
+
+if (read) {
+int recordFound = 0;
+string line;
+string temp = username + password + ".dat";
+cout<<"\n file name is : "<<temp;
+while(getline(read, line)) {
+	if(line == temp)
+	{
+		recordFound = 1;
+		break;
+	}
+}
+if(recordFound == 0)
+    return 0;
+else
+   return 1;
+}
+else
+{
+   return 0;
+}    		
 }
 
 int main() {
