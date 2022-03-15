@@ -9,24 +9,25 @@ int studentLogin();
 int adminLogin();
 int studentView();
 int adminView();
+int markMyAttendance(string username);
 int checkCredentials(string userName, string password);
 int delay();
 
 void delay()
 {
-for(int i = 0; i<3; i ++)
+for(int i=0; i<3; i++)
 {
 	cout<<"\n SAVING";
-    for(int ii = 0; ii<20000; ii ++)
+    for(int j=0; j<20000; j++)
     {
-    	for(int iii = 0; iii<20000; iii ++)
+    	for(int k=0; k<20000; k++)
        	{ }
     }
 }  
 cout<<"\n QUITTING";
-for(int i = 0; i<3; i ++){
-   for(int ii = 0; ii<20000; ii ++) { 
-     for(int iii = 0; iii<20000; iii ++){
+for(int i=0; i<3; i++){
+   for(int j= 0; j<20000; j++) { 
+     for(int k=0; k<20000; k++){
 	 }
     } 
 }
@@ -65,7 +66,8 @@ else
 {
 cout<<"\n Error! Invalid Credentials!";	
 cout<<"\n Press any key for Main Menu";
-getchar();getchar();
+getchar();
+getchar();
 }
 return 0;
 }
@@ -73,9 +75,7 @@ return 0;
 int studentView()
 {
 cout<<"\n STUDENT LOGIN --\n";		
-
 string username, password;
-
 cout<<"\n Enter username -";
 cin>>username;
 
@@ -187,6 +187,17 @@ else
    return 0;
 }    		
 }
+
+int markMyAttendance(string username)
+{
+cout<<"\n Marked Attendance for today";	
+cout<<"\n Press any key to continue.";
+
+getchar();getchar();
+
+return 0;	
+} 
+
 
 int main() {
 	
