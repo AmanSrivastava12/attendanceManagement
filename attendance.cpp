@@ -5,6 +5,11 @@
 
 using namespace std;
 
+vector<string> username;
+vector<string> password;
+vector<int> attend;
+auto idx;
+
 int studentLogin();
 int adminLogin();
 int studentView();
@@ -13,6 +18,7 @@ int registerStudent();
 int markMyAttendance(string username);
 int checkCredentials(string userName, string password);
 int delay();
+
 
 int registerStudent()
 {
@@ -78,22 +84,20 @@ int registerStudent()
 
 void delay()
 {
-for(int i=0; i<3; i++)
-{
-	cout<<"\n SAVING";
-    for(int j=0; j<20000; j++)
-    {
-    	for(int k=0; k<20000; k++)
-       	{ }
+cout<<"\n SAVING...";
+for(int i=0; i<3; i++){
+    for(int j=0; j<20000; j++){
+    	for(int k=0; k<20000; k++){
+		}
     }
 }  
-cout<<"\n QUITTING";
+cout<<"\n EXITING...";
 for(int i=0; i<3; i++){
    for(int j= 0; j<20000; j++) { 
      for(int k=0; k<20000; k++){
-	 }
-    } 
-}
+	}
+	}
+	}
 }
 
 int studentLogin()
@@ -136,16 +140,15 @@ return 0;
 }
 
 int studentView()
-{
-cout<<"\n STUDENT LOGIN --\n";		
-string username, password;
+{	
+string uname, pass;
 cout<<"\n Enter username -";
-cin>>username;
+cin>>uname;
 
 cout<<"\n Enter password -";
-cin>>password;
+cin>>pass;
 
-int res = checkCredentials(username, password);
+int res = checkCredentials(uname, pass);
 
 if(res  == 0)
 {
@@ -154,17 +157,13 @@ if(res  == 0)
    getchar(); getchar();	
    return 0;
 } 
-
 int goBack = 0;
-while(1)
-{
+do{
 system("cls");
-
 cout<<"\n ENTER 1 - Mark Attendance for today \n 2 - Count my Attendance till date \n 3 - Return";
 cout<<"ENTER YOUR CHOICE";
 int choice;
 cin>>choice;
-
 switch(choice)
 {
 	case 1: markMyAttendance(username);
@@ -176,12 +175,8 @@ switch(choice)
     default: cout<<"\n Invalid choice entered. Try again.";
     getchar();           	
 }   
-
-if(goBack == 1)
-{
-break;
-}     	
-} 
+}
+while(goBack == 0) 
 }
 
 int adminView()
@@ -223,41 +218,30 @@ break;
 return 0;
 }
 
-int checkCredentials(string username, string password)
+int checkCredentials(string uname, string pass)
 {
-ifstream read;
-read.open("db.dat");
-
-if (read) {
-int recordFound = 0;
-string line;
-string temp = username + password + ".dat";
-cout<<"\n file name is : "<<temp;
-while(getline(read, line)) {
-	if(line == temp)
+	int i;
+	auto it = find(username.begin(),username.end(),uname)
+	if(it == username.end())
+	return 0;
+	else
 	{
-		recordFound = 1;
-		break;
-	}
-}
-if(recordFound == 0)
-    return 0;
-else
-   return 1;
-}
-else
-{
-   return 0;
-}    		
+		if(password[it - password.begin()] != pass)
+		return 0;
+		else
+		{
+			idx = it - password.begin();
+			return 1;
+		}
+	}  		
 }
 
 int markMyAttendance(string username)
 {
+attend[idx]++;
 cout<<"\n Marked Attendance for today";	
 cout<<"\n Press any key to continue.";
-
-getchar();getchar();
-
+getchar();
 return 0;	
 } 
 
@@ -268,7 +252,8 @@ while(1)
 {
 	system("cls");
 	cout<<"\n ATTENDANCE MANAGEMENT SYSTEM \n";
-	
+	char ex;
+	do{
 	cout<<"ENTER 1 - STUDENT LOGIN \n 2 - ADMIN LOGIN \n 3 - EXIT \n";
 	int choice;
 	cout<<"ENTER YOUR CHOICE";
@@ -280,28 +265,21 @@ while(1)
 	case 2: adminLogin();
 	break;
 	case 3: 
-	        while(1)
-	        {
 		    system("cls");
         	cout<<"\n Are you sure, you want to exit? Press y for yes or n for no \n";
-        	char ex;
         	cin>>ex;
         	if(ex == 'y' || ex == 'Y')
         	   exit(0);
         	else if(ex == 'n' || ex == 'N')
-             {
-             	break;
-             }
-             else{
+               break;
+            else{
              	cout<<"\n Invalid choice entered.";
              	getchar();
-             }
-
-     	   }
-            break;
-             	 
+			}
+            break;   	 
     default: cout<<"\n Invalid choice entered. Try again.";
-    getchar();
+	}
+	while(ex == 'n' || ex == 'N')
 	}   		        
 
 }	
