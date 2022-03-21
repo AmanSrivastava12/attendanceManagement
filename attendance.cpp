@@ -15,7 +15,8 @@ int adminLogin();
 int studentView();
 int adminView();
 int registerStudent();
-int markMyAttendance(string username);
+void markMyAttendance();
+void countMyAttendance();
 int checkCredentials(string userName, string password);
 int delay();
 
@@ -166,11 +167,11 @@ int choice;
 cin>>choice;
 switch(choice)
 {
-	case 1: markMyAttendance(username);
+	case 1: markMyAttendance();
 	break;
-	case 2: countMyAttendance(username);
+	case 2: countMyAttendance();
 	break;
-	case 0: goBack = 1;
+	case 3: goBack = 1;
 	break;
     default: cout<<"\n Invalid choice entered. Try again.";
     getchar();           	
@@ -236,20 +237,22 @@ int checkCredentials(string uname, string pass)
 	}  		
 }
 
-int markMyAttendance(string username)
+void markMyAttendance()
 {
 attend[idx]++;
 cout<<"\n Marked Attendance for today";	
 cout<<"\n Press any key to continue.";
 getchar();
-return 0;	
 } 
 
+void countMyAttendance()
+{
+cout<<"\n Attendance till date is - "<<attend[idx];	
+cout<<"\n Please any key to continue.";
+getchar();	
+} 
 
 int main() {
-	
-while(1)
-{
 	system("cls");
 	cout<<"\n ATTENDANCE MANAGEMENT SYSTEM \n";
 	char ex;
@@ -281,7 +284,5 @@ while(1)
 	}
 	while(ex == 'n' || ex == 'N')
 	}   		        
-
-}	
 return 0;
 } 
