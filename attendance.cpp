@@ -8,6 +8,7 @@ using namespace std;
 vector<string> username;
 vector<string> password;
 vector<int> attend;
+vector<int> rollno;
 auto idx;
 
 int studentLogin();
@@ -19,6 +20,8 @@ void markMyAttendance();
 void countMyAttendance();
 int checkCredentials(string userName, string password);
 int delay();
+void getListOfStudentsWithTheirCount();
+void checkCountbyRollno(int roll);
 
 
 int registerStudent()
@@ -182,40 +185,33 @@ while(goBack == 0)
 
 int adminView()
 {	
-int goBack = 0;
-while(1)
+int roll,goBack = 0;
+do
 {
 system("cls");
 cout<<"\n ENTER 0 - Return back \n 1 - Register a Student \n 2 - Delete all students name that are registered \n 3 - Delete a student through rollno \n 4 - Check list of students registered by userame \n 5 - Check present attendance of any student through rollno \n 6 - Get complete list of students with their attendance";
 int choice;
-
 cout<<"ENTER YOUR CHOICE";
 cin>>choice;
-
 switch(choice)
 {
-	case 1: registerStudent();
+	case 1: roll = registerStudent();
 	break;  
 	case 2: deleteAllStudents();
 	break;
-	case 3: deleteStudentbyRollno();
+	case 3: deleteStudentbyRollno(roll);
 	break;
 	case 4: checkListOfStudentsRegistered();
 	break;
-	case 5: checkPresenseCountbyRollno();
+	case 5: checkCountbyRollno(roll);
 	break;
-	case 6: getListOfStudentsWithTheirPresenseCount();
+	case 6: getListOfStudentsWithTheirCount();
 	break;
 	case 0: goBack = 1;
 	break;
     default: cout<<"\n Invalid choice entered. Try again.";
-    getchar();           	
-}   
-if(goBack == 1)
-{
-break;
-}     
-}
+    getchar(); 
+} while (goBack == 0);
 return 0;
 }
 
@@ -251,6 +247,32 @@ cout<<"\n Attendance till date is - "<<attend[idx];
 cout<<"\n Please any key to continue.";
 getchar();	
 } 
+
+void getListOfStudentsWithTheirCount()
+{
+cout<<"\n All Students with their count -\n";
+int i,n=attend.size();
+for(i=0;i<n;i++)
+{
+	cout<<attend[i]<<endl;
+}
+cout<<"\n Please any key to continue.";
+getchar();
+}
+
+void checkCountbyRollno(int roll)
+{
+cout<<"\n Attendance of the student with the given Roll Number is:\n";
+int i,n=rollno.size();
+for(i=0;i<n;i++)
+{
+	if(roll == rollno[i])
+	break;
+}
+cout<<attend[i]<<endl;		
+cout<<"\n Please any key to continue."	;
+getchar();
+}
 
 int main() {
 	system("cls");
