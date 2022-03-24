@@ -26,64 +26,46 @@ void checkCountbyRollno(int roll);
 
 int registerStudent()
 {
-    cout<<"\n ----- Form to Register Student ---- \n";	
+    cout<<"\n --- Form to Register Student --- \n";	
 
-    string name, username, password, rollno, address, father, mother;
-    
-    cout<<"\n Enter Name : ";     cin>>name;
-    cout<<"\n Enter Username : ";     cin>>username;
-    cout<<"\n Enter password : ";     cin>>password;
-    cout<<"\n Enter rollno : ";     cin>>rollno;
-    getchar();
-    
-    char add[100];
-    cout<<"\n Enter address : ";     cin.getline(add, 100);
-    cout<<"\n Enter father : ";     cin>>father;
-    cout<<"\n Enter mother : ";     cin>>mother;
-    
-    //check if record already exist..
-    ifstream read;
-    read.open("db.dat");
-    
-    if(read)
-    {   int recordFound =0; 
-	   string line;
-	    while(getline(read, line)) {
-    	if(line == username+".dat" )
-    	{
-    		recordFound = 1 ;
-    	    break;
-		}
-        }
-        if(recordFound == 1)
-        {
-    	cout<<"\n Username already Register. Please choose another username ";
-    	getchar(); getchar();
-    	delay();
-    	read.close();
-    	return 0;
-		}
+    string name, uname, pass, address, father, mother;
+	int roll,j,k;
+    cout<<"\n Enter Name of the student :";
+	cin>>name;
+    cout<<"\n Enter username : ";
+	cin>>uname;
+    cout<<"\n Enter password : ";
+	cin>>pass;
+    cout<<"\n Enter rollno : ";
+	cin>>roll;
+    cout<<"\n Enter your address : ";
+	cin>>address;
+    cout<<"\n Enter your father's name : ";
+	cin>>father;
+    cout<<"\n Enter your mother's name : ";
+	cin>>mother;
+	j = count(username.begin(),username.end(),uname);
+	if(j!=0)
+	{
+	cout<<"Username already registered. Please choose another username"<<endl;
+	cout<<"Enter a new username :\n";
+	cin>>uname;
 	}
-    read.close();
-
-    ofstream out;
-	out.open("db.dat", ios::app);
-	out<<username+".dat"<<"\n";
-	out.close();
-
-	ofstream out1;
-	string temp = username+".dat";
-	out1.open(temp.c_str());
-	out1<<name<<"\n"; 	out1<<username<<"\n"; 	out1<<password<<"\n";
-	out1<<rollno<<"\n"; 	out1<<add<<"\n"; 	out1<<father<<"\n";
-	out1<<mother<<"\n";
-	out1.close();
-
-	cout<<"\n Student Registered Successfully !!";
-    
-    cout<<"\n Please any key to continue..";
-	getchar(); getchar();
-	return 0;		
+	k = count(rollno.begin(),rollno.end(),roll);
+	if(k!=0)
+	{
+	cout<<"This Roll Number is already assigned to a different user. Please choose another Roll Number"<<endl;
+	cout<<"Enter a new Roll Number\n";
+	cin>>roll;
+	}
+	username.push_back(uname);
+	password.push_back(pass);
+	attend.push_back(0);
+	rollno.push_back(roll);
+	cout<<"\n Student Registered Successfully!";
+    cout<<"\n Press any key to continue.";
+	getchar();		
+	return roll;
 }
 
 void delay()
