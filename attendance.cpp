@@ -22,6 +22,7 @@ int checkCredentials(string userName, string password);
 int delay();
 void getListOfStudentsWithTheirCount();
 void checkCountbyRollno(int roll);
+void checkListOfStudentsRegistered();
 
 
 int registerStudent()
@@ -45,18 +46,20 @@ int registerStudent()
     cout<<"\n Enter your mother's name : ";
 	cin>>mother;
 	j = count(username.begin(),username.end(),uname);
-	if(j!=0)
+	while(j!=0)
 	{
 	cout<<"Username already registered. Please choose another username"<<endl;
 	cout<<"Enter a new username :\n";
 	cin>>uname;
+	j = count(username.begin(),username.end(),uname);
 	}
 	k = count(rollno.begin(),rollno.end(),roll);
-	if(k!=0)
+    while(k!=0)
 	{
 	cout<<"This Roll Number is already assigned to a different user. Please choose another Roll Number"<<endl;
 	cout<<"Enter a new Roll Number\n";
 	cin>>roll;
+	k = count(rollno.begin(),rollno.end(),roll);
 	}
 	username.push_back(uname);
 	password.push_back(pass);
@@ -252,7 +255,20 @@ for(i=0;i<n;i++)
 	break;
 }
 cout<<attend[i]<<endl;		
-cout<<"\n Please any key to continue."	;
+cout<<"\n Please any key to continue.";
+getchar();
+}
+
+void checkListOfStudentsRegistered()
+{
+cout<<"\n List of all students registered";
+cout<<"\n Please any key to continue.";
+int i,n = username.size();
+for(i=0;i<n;i++)
+{
+	cout<<username[i]<<" "<<password[i]<<" "<<rollno[i]<<endl;
+}
+cout<<"\n Please any key to continue.";
 getchar();
 }
 
