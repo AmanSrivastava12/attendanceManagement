@@ -23,6 +23,7 @@ int delay();
 void getListOfStudentsWithTheirCount();
 void checkCountbyRollno(int roll);
 void checkListOfStudentsRegistered();
+void deleteStudentbyRollno(roll);
 
 
 int registerStudent()
@@ -229,7 +230,7 @@ getchar();
 void countMyAttendance()
 {
 cout<<"\n Attendance till date is - "<<attend[idx];	
-cout<<"\n Please any key to continue.";
+cout<<"\n Press any key to continue.";
 getchar();	
 } 
 
@@ -241,7 +242,7 @@ for(i=0;i<n;i++)
 {
 	cout<<attend[i]<<endl;
 }
-cout<<"\n Please any key to continue.";
+cout<<"\n Press any key to continue.";
 getchar();
 }
 
@@ -255,20 +256,39 @@ for(i=0;i<n;i++)
 	break;
 }
 cout<<attend[i]<<endl;		
-cout<<"\n Please any key to continue.";
+cout<<"\n Press any key to continue.";
 getchar();
 }
 
 void checkListOfStudentsRegistered()
 {
 cout<<"\n List of all students registered";
-cout<<"\n Please any key to continue.";
 int i,n = username.size();
 for(i=0;i<n;i++)
 {
 	cout<<username[i]<<" "<<password[i]<<" "<<rollno[i]<<endl;
 }
-cout<<"\n Please any key to continue.";
+cout<<"\n Press any key to continue.";
+getchar();
+}
+
+void deleteStudentbyRollno(int roll)
+{
+int i,j,n=rollno.size();
+for(i=0;i<n;i++)
+{
+	if(roll == rollno[i])
+	break;
+}
+for(j=i;j<(n-1);j++)
+{
+	username[j] = username[j+1];
+	password[j] = password[j+1];
+	attend[j] = attend[j+1];
+	rollno[j] = rollno[j+1];
+}
+cout<<"\n Entry successfully deleted. \n";		
+cout<<"\n Press any key to continue.";
 getchar();
 }
 
