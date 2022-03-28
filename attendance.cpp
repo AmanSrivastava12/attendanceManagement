@@ -24,6 +24,7 @@ void getListOfStudentsWithTheirCount();
 void checkCountbyRollno(int roll);
 void checkListOfStudentsRegistered();
 void deleteStudentbyRollno(roll);
+void deleteAllStudents();
 
 
 int registerStudent()
@@ -288,6 +289,17 @@ for(j=i;j<(n-1);j++)
 	rollno[j] = rollno[j+1];
 }
 cout<<"\n Entry successfully deleted. \n";		
+cout<<"\n Press any key to continue.";
+getchar();
+}
+
+void deleteAllStudents()
+{
+username.clear();
+password.clear();
+attend.clear();
+rollno.clear();
+cout<<"\n Successfully Deleted all students!";
 cout<<"\n Press any key to continue.";
 getchar();
 }
