@@ -11,15 +11,15 @@ vector<int> attend;
 vector<int> rollno;
 auto idx;
 
-int studentLogin();
-int adminLogin();
-int studentView();
-int adminView();
+void studentLogin();
+void adminLogin();
+void studentView();
+void adminView();
 int registerStudent();
 void markMyAttendance();
 void countMyAttendance();
 int checkCredentials(string userName, string password);
-int delay();
+void delay();
 void getListOfStudentsWithTheirCount();
 void checkCountbyRollno(int roll);
 void checkListOfStudentsRegistered();
@@ -30,7 +30,6 @@ void deleteAllStudents();
 int registerStudent()
 {
     cout<<"\n --- Form to Register Student --- \n";	
-
     string name, uname, pass, address, father, mother;
 	int roll,j,k;
     cout<<"\n Enter Name of the student :";
@@ -91,30 +90,26 @@ for(int i=0; i<3; i++){
 	}
 }
 
-int studentLogin()
+void studentLogin()
 {
 system("cls");
 cout<<"\n STUDENT LOGIN --";	
 studentView();
 delay();
-return 0; 
 }
 
 
-int adminLogin()
+void adminLogin()
 {
 system("cls");
 cout<<"\n ADMIN LOGIN --";	
-
-string username;
-string password;
-
+string uname;
+string pass;
 cout<<"\n Enter username -";
-cin>>username;
+cin>>uname;
 cout<<"\n Enter password -";
-cin>>password;
-
-if(username=="admin" && password=="admin@2") 
+cin>>pass;
+if(uname=="admin" && pass=="admin@123") 
 {
     adminView();
     getchar();	
@@ -125,28 +120,22 @@ else
 cout<<"\n Error! Invalid Credentials!";	
 cout<<"\n Press any key for Main Menu";
 getchar();
-getchar();
 }
-return 0;
 }
 
-int studentView()
+void studentView()
 {	
 string uname, pass;
 cout<<"\n Enter username -";
 cin>>uname;
-
 cout<<"\n Enter password -";
 cin>>pass;
-
 int res = checkCredentials(uname, pass);
-
 if(res  == 0)
 {
    cout<<"\n Error! Invalid Credentials!";
    cout<<"\n Press any key for Main Menu";
-   getchar(); getchar();	
-   return 0;
+   getchar();	
 } 
 int goBack = 0;
 do{
@@ -166,17 +155,16 @@ switch(choice)
     default: cout<<"\n Invalid choice entered. Try again.";
     getchar();           	
 }   
-}
-while(goBack == 0) 
+} while(goBack == 0) 
 }
 
-int adminView()
+void adminView()
 {	
 int roll,goBack = 0;
 do
 {
 system("cls");
-cout<<"\n ENTER 0 - Return back \n 1 - Register a Student \n 2 - Delete all students name that are registered \n 3 - Delete a student through rollno \n 4 - Check list of students registered by userame \n 5 - Check present attendance of any student through rollno \n 6 - Get complete list of students with their attendance";
+cout<<"\n ENTER 0 - Return back \n 1 - Register a Student \n 2 - Delete all students that are registered \n 3 - Delete a student through rollno \n 4 - Display list of students registered by userame \n 5 - Check present attendance of any student through rollno \n 6 - Get complete list of students with their attendance";
 int choice;
 cout<<"ENTER YOUR CHOICE";
 cin>>choice;
@@ -199,7 +187,6 @@ switch(choice)
     default: cout<<"\n Invalid choice entered. Try again.";
     getchar(); 
 } while (goBack == 0);
-return 0;
 }
 
 int checkCredentials(string uname, string pass)
@@ -334,7 +321,6 @@ int main() {
             break;   	 
     default: cout<<"\n Invalid choice entered. Try again.";
 	}
-	while(ex == 'n' || ex == 'N')
-	}   		        
+	} while(ex == 'n' || ex == 'N')  		        
 return 0;
 } 
