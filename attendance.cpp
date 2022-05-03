@@ -5,27 +5,26 @@
 
 using namespace std;
 
-vector<string> username;
-vector<string> password;
-vector<int> attend;
-vector<int> rollno;
-auto idx;
+string username[100];
+string password[100];
+int attend[100];
+int rollno[100];
+int idx;
 
-void studentLogin();
-void adminLogin();
-void studentView();
-void adminView();
-int registerStudent();
-void markMyAttendance();
-void countMyAttendance();
-int checkCredentials(string userName, string password);
-void delay();
-void getListOfStudentsWithTheirCount();
-void checkCountbyRollno(int roll);
-void checkListOfStudentsRegistered();
-void deleteStudentbyRollno(roll);
-void deleteAllStudents();
-
+// void studentLogin();
+// void adminLogin();
+// void studentView();
+// void adminView();
+// int registerStudent();
+// void markMyAttendance();
+// void countMyAttendance();
+// int checkCredentials(string userName, string password);
+// void delay();
+// void getListOfStudentsWithTheirCount();
+// void checkCountbyRollno(int roll);
+// void checkListOfStudentsRegistered();
+// void deleteStudentbyRollno(roll);
+// void deleteAllStudents();
 
 int registerStudent()
 {
@@ -57,7 +56,7 @@ int registerStudent()
 	k = count(rollno.begin(),rollno.end(),roll);
     while(k!=0)
 	{
-	cout<<"This Roll Number is already assigned to a different user. Please choose another Roll Number"<<endl;
+	cout<<"This Roll Number is already assigned to a different user. Please choose another Roll Number."<<endl;
 	cout<<"Enter a new Roll Number\n";
 	cin>>roll;
 	k = count(rollno.begin(),rollno.end(),roll);
@@ -90,38 +89,38 @@ for(int i=0; i<3; i++){
 	}
 }
 
-void studentLogin()
+int checkCredentials(string uname, string pass)
 {
-system("cls");
-cout<<"\n STUDENT LOGIN --";	
-studentView();
-delay();
+	int i;
+	auto it = find(username.begin(),username.end(),uname)
+	if(it == username.end())
+	return 0;
+	else
+	{
+		if(password[it - password.begin()] != pass)
+		return 0;
+		else
+		{
+			idx = it - password.begin();
+			return 1;
+		}
+	}  		
 }
 
-
-void adminLogin()
+void markMyAttendance()
 {
-system("cls");
-cout<<"\n ADMIN LOGIN --";	
-string uname;
-string pass;
-cout<<"\n Enter username -";
-cin>>uname;
-cout<<"\n Enter password -";
-cin>>pass;
-if(uname=="admin" && pass=="admin@123") 
-{
-    adminView();
-    getchar();	
-    delay();
-}   
-else
-{
-cout<<"\n Error! Invalid Credentials!";	
-cout<<"\n Press any key for Main Menu";
+attend[idx]++;
+cout<<"\n Marked Attendance for today";	
+cout<<"\n Press any key to continue.";
 getchar();
-}
-}
+} 
+
+void countMyAttendance()
+{
+cout<<"\n Attendance till date is - "<<attend[idx];	
+cout<<"\n Press any key to continue.";
+getchar();	
+} 
 
 void studentView()
 {	
@@ -158,69 +157,37 @@ switch(choice)
 } while(goBack == 0) 
 }
 
-void adminView()
-{	
-int roll,goBack = 0;
-do
+void studentLogin()
 {
 system("cls");
-cout<<"\n ENTER 0 - Return back \n 1 - Register a Student \n 2 - Delete all students that are registered \n 3 - Delete a student through rollno \n 4 - Display list of students registered by userame \n 5 - Check present attendance of any student through rollno \n 6 - Get complete list of students with their attendance";
-int choice;
-cout<<"ENTER YOUR CHOICE";
-cin>>choice;
-switch(choice)
-{
-	case 1: roll = registerStudent();
-	break;  
-	case 2: deleteAllStudents();
-	break;
-	case 3: deleteStudentbyRollno(roll);
-	break;
-	case 4: checkListOfStudentsRegistered();
-	break;
-	case 5: checkCountbyRollno(roll);
-	break;
-	case 6: getListOfStudentsWithTheirCount();
-	break;
-	case 0: goBack = 1;
-	break;
-    default: cout<<"\n Invalid choice entered. Try again.";
-    getchar(); 
-} while (goBack == 0);
+cout<<"\n STUDENT LOGIN --";	
+studentView();
+delay();
 }
 
-int checkCredentials(string uname, string pass)
+void adminLogin()
 {
-	int i;
-	auto it = find(username.begin(),username.end(),uname)
-	if(it == username.end())
-	return 0;
-	else
-	{
-		if(password[it - password.begin()] != pass)
-		return 0;
-		else
-		{
-			idx = it - password.begin();
-			return 1;
-		}
-	}  		
-}
-
-void markMyAttendance()
+system("cls");
+cout<<"\n ADMIN LOGIN --";	
+string uname;
+string pass;
+cout<<"\n Enter username -";
+cin>>uname;
+cout<<"\n Enter password -";
+cin>>pass;
+if(uname=="admin" && pass=="admin@123") 
 {
-attend[idx]++;
-cout<<"\n Marked Attendance for today";	
-cout<<"\n Press any key to continue.";
+    adminView();
+    getchar();	
+    delay();
+}   
+else
+{
+cout<<"\n Error! Invalid Credentials!";	
+cout<<"\n Press any key for Main Menu";
 getchar();
-} 
-
-void countMyAttendance()
-{
-cout<<"\n Attendance till date is - "<<attend[idx];	
-cout<<"\n Press any key to continue.";
-getchar();	
-} 
+}
+}
 
 void getListOfStudentsWithTheirCount()
 {
@@ -291,7 +258,39 @@ cout<<"\n Press any key to continue.";
 getchar();
 }
 
-int main() {
+void adminView()
+{	
+int roll,goBack = 0;
+do
+{
+system("cls");
+cout<<"\n ENTER 0 - Return back \n 1 - Register a Student \n 2 - Delete all students that are registered \n 3 - Delete a student through rollno \n 4 - Display list of students registered by userame \n 5 - Check present attendance of any student through rollno \n 6 - Get complete list of students with their attendance";
+int choice;
+cout<<"ENTER YOUR CHOICE";
+cin>>choice;
+switch(choice)
+{
+	case 1: roll = registerStudent();
+	break;  
+	case 2: deleteAllStudents();
+	break;
+	case 3: deleteStudentbyRollno(roll);
+	break;
+	case 4: checkListOfStudentsRegistered();
+	break;
+	case 5: checkCountbyRollno(roll);
+	break;
+	case 6: getListOfStudentsWithTheirCount();
+	break;
+	case 0: goBack = 1;
+	break;
+    default: cout<<"\n Invalid choice entered. Try again.";
+    getchar(); 
+} while (goBack == 0);
+}
+
+int main()
+{
 	system("cls");
 	cout<<"\n ATTENDANCE MANAGEMENT SYSTEM \n";
 	char ex;
@@ -314,13 +313,14 @@ int main() {
         	   exit(0);
         	else if(ex == 'n' || ex == 'N')
                break;
-            else{
+            else
+			{
              	cout<<"\n Invalid choice entered.";
              	getchar();
 			}
             break;   	 
     default: cout<<"\n Invalid choice entered. Try again.";
 	}
-	} while(ex == 'n' || ex == 'N')  		        
+	} while(ex == 'n' || ex == 'N'); 		        
 return 0;
 } 
