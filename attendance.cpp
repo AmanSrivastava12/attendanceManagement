@@ -1,86 +1,117 @@
-#include <iostream>
-#include <string>
-#include <fstream>
-#include <cstring>
+#include<iostream>
+#include<string.h>
+#include<conio.h>
 
 using namespace std;
 
-string username[100];
-string password[100];
-int attend[100];
-int rollno[100];
+string username[100]={""};
+string password[100]={""};
+int attend[100]={0};
+int rollno[100]={-1};
 int idx;
+int counter=0;
 
-// void studentLogin();
-// void adminLogin();
-// void studentView();
-// void adminView();
-// int registerStudent();
-// void markMyAttendance();
-// void countMyAttendance();
-// int checkCredentials(string userName, string password);
-// void delay();
-// void getListOfStudentsWithTheirCount();
-// void checkCountbyRollno(int roll);
-// void checkListOfStudentsRegistered();
-// void deleteStudentbyRollno(roll);
-// void deleteAllStudents();
+void studentLogin();
+void adminLogin();
+void studentView();
+void adminView();
+int registerStudent();
+void markMyAttendance();
+void countMyAttendance();
+int checkCredentials(string uname, string pass);
+void delay();
+void getListOfStudentsWithTheirCount();
+void checkCountbyRollno(int roll);
+void checkListOfStudentsRegistered();
+void deleteStudentbyRollno(int roll);
+void deleteAllStudents();
 
 int registerStudent()
 {
     cout<<"\n --- Form to Register Student --- \n";	
     string name, uname, pass, address, father, mother;
-	int roll,j,k;
-    cout<<"\n Enter Name of the student :";
+	int roll,j=0,k=0,i;
+    cout<<"\nEnter Name of the student (only first name) : ";
 	cin>>name;
-    cout<<"\n Enter username : ";
+    cout<<"\nEnter username : ";
 	cin>>uname;
-    cout<<"\n Enter password : ";
+    cout<<"\nEnter password : ";
 	cin>>pass;
-    cout<<"\n Enter rollno : ";
+    cout<<"\nEnter rollno : ";
 	cin>>roll;
-    cout<<"\n Enter your address : ";
+    cout<<"\nEnter your address (only city) : ";
 	cin>>address;
-    cout<<"\n Enter your father's name : ";
+    cout<<"\nEnter your father's name (only first name) : ";
 	cin>>father;
-    cout<<"\n Enter your mother's name : ";
+    cout<<"\nEnter your mother's name (only first name) : ";
 	cin>>mother;
-	j = count(username.begin(),username.end(),uname);
+	for(i=0;i<counter;i++)
+	{
+		if(uname==username[i])
+		{
+		j=1;
+		break;
+		}
+	}
 	while(j!=0)
 	{
-	cout<<"Username already registered. Please choose another username"<<endl;
-	cout<<"Enter a new username :\n";
+	j=0;
+	cout<<"\nUsername already registered. Please choose another username."<<endl;
+	cout<<"\nEnter a new username :\n";
 	cin>>uname;
-	j = count(username.begin(),username.end(),uname);
+	for(i=0;i<counter;i++)
+	{
+		if(uname==username[i])
+		{
+		j=1;
+		break;
+		}
 	}
-	k = count(rollno.begin(),rollno.end(),roll);
+	}
+	for(i=0;i<counter;i++)
+	{
+		if(roll==rollno[i])
+		{
+		k=1;
+		break;
+		}
+	}
     while(k!=0)
 	{
-	cout<<"This Roll Number is already assigned to a different user. Please choose another Roll Number."<<endl;
-	cout<<"Enter a new Roll Number\n";
+	k=0;
+	cout<<"This Roll Number is already assigned to a different user. Please choose another Roll Number.\n"<<endl;
+	cout<<"Enter a new Roll Number : \n";
 	cin>>roll;
-	k = count(rollno.begin(),rollno.end(),roll);
+	for(i=0;i<counter;i++)
+	{
+		if(roll==rollno[i])
+		{
+		k=1;
+		break;
+		}
 	}
-	username.push_back(uname);
-	password.push_back(pass);
-	attend.push_back(0);
-	rollno.push_back(roll);
-	cout<<"\n Student Registered Successfully!";
-    cout<<"\n Press any key to continue.";
-	getchar();		
+	}
+	username[counter]=uname;
+	password[counter]=pass;
+	attend[counter]=0;
+	rollno[counter]=roll;
+	counter++;
+	cout<<"\nStudent Registered Successfully!";
+    cout<<"\nPress any key to continue.";
+	getch();		
 	return roll;
 }
 
 void delay()
 {
-cout<<"\n SAVING...";
+cout<<"\nSAVING...";
 for(int i=0; i<3; i++){
     for(int j=0; j<20000; j++){
     	for(int k=0; k<20000; k++){
 		}
     }
 }  
-cout<<"\n EXITING...";
+cout<<"\nEXITING...";
 for(int i=0; i<3; i++){
    for(int j= 0; j<20000; j++) { 
      for(int k=0; k<20000; k++){
@@ -91,17 +122,21 @@ for(int i=0; i<3; i++){
 
 int checkCredentials(string uname, string pass)
 {
-	int i;
-	auto it = find(username.begin(),username.end(),uname)
-	if(it == username.end())
+	int i,j=-1;
+	for(i=0;i<counter;i++)
+	{
+		if(username[i]==uname)
+		j=i;
+	}
+	if(j==-1)
 	return 0;
 	else
 	{
-		if(password[it - password.begin()] != pass)
+		if(password[j] != pass)
 		return 0;
 		else
 		{
-			idx = it - password.begin();
+			idx = j;
 			return 1;
 		}
 	}  		
@@ -110,37 +145,43 @@ int checkCredentials(string uname, string pass)
 void markMyAttendance()
 {
 attend[idx]++;
-cout<<"\n Marked Attendance for today";	
-cout<<"\n Press any key to continue.";
-getchar();
+cout<<"\nMarked Attendance for today";	
+cout<<"\nPress any key to continue.";
+getch();
 } 
 
 void countMyAttendance()
 {
-cout<<"\n Attendance till date is - "<<attend[idx];	
-cout<<"\n Press any key to continue.";
-getchar();	
+cout<<"\nAttendance till date is - "<<attend[idx];	
+cout<<"\nPress any key to continue.";
+getch();	
 } 
 
 void studentView()
 {	
 string uname, pass;
-cout<<"\n Enter username -";
+cout<<"\nEnter username - ";
 cin>>uname;
-cout<<"\n Enter password -";
+cout<<"Enter password - ";
 cin>>pass;
 int res = checkCredentials(uname, pass);
-if(res  == 0)
+if(counter==0)
 {
-   cout<<"\n Error! Invalid Credentials!";
-   cout<<"\n Press any key for Main Menu";
-   getchar();	
+	cout<<"\nNo students registered till now.\n";
+	return;
+}
+if(res == 0)
+{
+   cout<<"\nError! Invalid Credentials!";
+   cout<<"\nPress any key for Main Menu.\n";
+   getch();
+   return;
 } 
 int goBack = 0;
 do{
 system("cls");
-cout<<"\n ENTER 1 - Mark Attendance for today \n 2 - Count my Attendance till date \n 3 - Return";
-cout<<"ENTER YOUR CHOICE";
+cout<<"\n1 - Mark Attendance for today \n2 - Count my Attendance till date \n3 - Return\n";
+cout<<"\nENTER YOUR CHOICE : ";
 int choice;
 cin>>choice;
 switch(choice)
@@ -151,111 +192,127 @@ switch(choice)
 	break;
 	case 3: goBack = 1;
 	break;
-    default: cout<<"\n Invalid choice entered. Try again.";
-    getchar();           	
+    default: cout<<"\nInvalid choice entered. Try again.";
+    getch();           	
 }   
-} while(goBack == 0) 
+} while(goBack == 0);
+return;
 }
 
 void studentLogin()
 {
 system("cls");
-cout<<"\n STUDENT LOGIN --";	
+cout<<"\nSTUDENT LOGIN -\n";	
 studentView();
 delay();
-}
-
-void adminLogin()
-{
-system("cls");
-cout<<"\n ADMIN LOGIN --";	
-string uname;
-string pass;
-cout<<"\n Enter username -";
-cin>>uname;
-cout<<"\n Enter password -";
-cin>>pass;
-if(uname=="admin" && pass=="admin@123") 
-{
-    adminView();
-    getchar();	
-    delay();
-}   
-else
-{
-cout<<"\n Error! Invalid Credentials!";	
-cout<<"\n Press any key for Main Menu";
-getchar();
-}
+getch;
+cout<<"\n\n";
+return;
 }
 
 void getListOfStudentsWithTheirCount()
 {
-cout<<"\n All Students with their count -\n";
-int i,n=attend.size();
-for(i=0;i<n;i++)
+if(counter==0)
 {
-	cout<<attend[i]<<endl;
+	cout<<"\nNo student data present to display.\n";
+	getch();
+	return;
 }
-cout<<"\n Press any key to continue.";
-getchar();
+cout<<"\nAll Students with their count -\n";
+int i;
+for(i=0;i<counter;i++)
+{
+	cout<<username[i]<<" "<<attend[i]<<endl;
+}
+cout<<"\nPress any key to continue.";
+getch();
 }
 
 void checkCountbyRollno(int roll)
 {
-cout<<"\n Attendance of the student with the given Roll Number is:\n";
-int i,n=rollno.size();
-for(i=0;i<n;i++)
+int i;
+for(i=0;i<counter;i++)
 {
 	if(roll == rollno[i])
 	break;
 }
+if(i==counter)
+{
+	cout<<"\nNo student present with the given roll number.\n";
+	getch();
+	return;
+}
+cout<<"\nAttendance of the student with the given Roll Number is:\n";
 cout<<attend[i]<<endl;		
-cout<<"\n Press any key to continue.";
-getchar();
+cout<<"\nPress any key to continue.";
+getch();
 }
 
 void checkListOfStudentsRegistered()
 {
-cout<<"\n List of all students registered";
-int i,n = username.size();
-for(i=0;i<n;i++)
+if(counter==0)
 {
-	cout<<username[i]<<" "<<password[i]<<" "<<rollno[i]<<endl;
+	cout<<"\nNo student data present to display.\n";
+	getch();
+    return;
 }
-cout<<"\n Press any key to continue.";
-getchar();
+cout<<"\nList of all students registered -\n";
+int i;
+for(i=0;i<counter;i++)
+{
+	cout<<username[i]<<" "<<rollno[i]<<endl;
+}
+cout<<"\nPress any key to continue.";
+getch();
 }
 
 void deleteStudentbyRollno(int roll)
 {
-int i,j,n=rollno.size();
-for(i=0;i<n;i++)
+int i,j;
+for(i=0;i<counter;i++)
 {
 	if(roll == rollno[i])
 	break;
 }
-for(j=i;j<(n-1);j++)
+if(i==counter)
+{
+	cout<<"\nNo student present with the entered roll number.\n";
+	getch();
+	return;
+}
+for(j=i;j<counter-1;j++)
 {
 	username[j] = username[j+1];
 	password[j] = password[j+1];
 	attend[j] = attend[j+1];
 	rollno[j] = rollno[j+1];
 }
-cout<<"\n Entry successfully deleted. \n";		
-cout<<"\n Press any key to continue.";
-getchar();
+counter--;
+cout<<"\nEntry successfully deleted. \n";		
+cout<<"\nPress any key to continue.";
+getch();
 }
 
 void deleteAllStudents()
 {
-username.clear();
-password.clear();
-attend.clear();
-rollno.clear();
-cout<<"\n Successfully Deleted all students!";
-cout<<"\n Press any key to continue.";
-getchar();
+int i;
+if(counter==0)
+{
+	cout<<"\nNo student data present to delete.\n";
+	getch();
+	return;
+}
+for(i=0;i<counter;i++)
+{
+	username[i]="";
+	password[i]="";
+	attend[i]=0;
+	rollno[i]=-1;
+}
+counter=0;
+cout<<"\nSuccessfully Deleted all students!";
+cout<<"\nPress any key to continue.";
+getch();
 }
 
 void adminView()
@@ -264,9 +321,9 @@ int roll,goBack = 0;
 do
 {
 system("cls");
-cout<<"\n ENTER 0 - Return back \n 1 - Register a Student \n 2 - Delete all students that are registered \n 3 - Delete a student through rollno \n 4 - Display list of students registered by userame \n 5 - Check present attendance of any student through rollno \n 6 - Get complete list of students with their attendance";
+cout<<"\n0 - Return back \n1 - Register a Student \n2 - Delete all students that are registered \n3 - Delete a student through rollno \n4 - Display list of students registered by userame \n5 - Check present attendance of any student through rollno \n6 - Get complete list of students with their attendance\n";
 int choice;
-cout<<"ENTER YOUR CHOICE";
+cout<<"\nENTER YOUR CHOICE : ";
 cin>>choice;
 switch(choice)
 {
@@ -274,30 +331,62 @@ switch(choice)
 	break;  
 	case 2: deleteAllStudents();
 	break;
-	case 3: deleteStudentbyRollno(roll);
+	case 3: cout<<"\nEnter the roll number - ";
+	cin>>roll;
+	deleteStudentbyRollno(roll);
 	break;
 	case 4: checkListOfStudentsRegistered();
 	break;
-	case 5: checkCountbyRollno(roll);
+	case 5: cout<<"\nEnter the roll number - ";
+	cin>>roll;
+	checkCountbyRollno(roll);
 	break;
 	case 6: getListOfStudentsWithTheirCount();
 	break;
 	case 0: goBack = 1;
 	break;
-    default: cout<<"\n Invalid choice entered. Try again.";
-    getchar(); 
+    default: cout<<"\nInvalid choice entered. Try again.";
+    getch();
+} 
 } while (goBack == 0);
+return;
+}
+
+void adminLogin()
+{
+system("cls");
+cout<<"\nADMIN LOGIN -\n";	
+string uname;
+string pass;
+cout<<"\nEnter username - ";
+cin>>uname;
+cout<<"Enter password - ";
+cin>>pass;
+if(uname=="admin" && pass=="amansrivastava12") 
+{
+    adminView();	
+    delay();
+	getch();
+	cout<<"\n\n";
+}   
+else
+{
+cout<<"\nError! Invalid Credentials!";	
+cout<<"\nPress any key for Main Menu.";
+getch();
+}
+return;
 }
 
 int main()
 {
 	system("cls");
-	cout<<"\n ATTENDANCE MANAGEMENT SYSTEM \n";
-	char ex;
+	cout<<"\n ATTENDANCE MANAGEMENT SYSTEM \n\n";
+	char ex='n';
 	do{
-	cout<<"ENTER 1 - STUDENT LOGIN \n 2 - ADMIN LOGIN \n 3 - EXIT \n";
+	cout<<"1 - STUDENT LOGIN \n2 - ADMIN LOGIN \n3 - EXIT \n\n";
 	int choice;
-	cout<<"ENTER YOUR CHOICE";
+	cout<<"ENTER YOUR CHOICE : ";
 	cin>>choice;
 	switch(choice)
 	{
@@ -307,7 +396,7 @@ int main()
 	break;
 	case 3: 
 		    system("cls");
-        	cout<<"\n Are you sure, you want to exit? Press y for yes or n for no \n";
+        	cout<<"\nAre you sure, you want to exit? Press y for yes or n for no \n";
         	cin>>ex;
         	if(ex == 'y' || ex == 'Y')
         	   exit(0);
@@ -315,11 +404,11 @@ int main()
                break;
             else
 			{
-             	cout<<"\n Invalid choice entered.";
-             	getchar();
+             	cout<<"\nInvalid choice entered.";
+             	getch();
 			}
             break;   	 
-    default: cout<<"\n Invalid choice entered. Try again.";
+    default: cout<<"\nInvalid choice entered. Try again.";
 	}
 	} while(ex == 'n' || ex == 'N'); 		        
 return 0;
